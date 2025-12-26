@@ -1,49 +1,51 @@
-const sqlite3 = require('sqlite3').verbose();
+const { Pool } = require('pg');
 
-// Create/connect to database file
-const db = new sqlite3.Database('./studymatcher.db', (err) => {
+// Database connection
+const connectionString = process.env.DATABASE_URL || 'postgresql://localhost/studymatcher_dev';
+
+const pool = new Pool({
+  connectionString: connectionString,
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+});
+
+// Test connection and create tables
+pool.query('SELECT NOW()', (err, res) => {
   if (err) {
-    console.error('Error opening database:', err);
+    console.error('Error connecting to database:', err);
   } else {
-    console.log('Connected to SQLite database');
+    console.log('Connected to PostgreSQL database');
+    createTables();
   }
 });
 
-// Create users table if it doesn't exist
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      major TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `, (err) => {
-    if (err) {
-      console.error('Error creating users table:', err);
-    } else {
-      console.log('Users table ready');
-    }
-  });
+// Create tables if they don't exist
+async function createTables() {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        major TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('Users table ready');
 
-  // Create courses table to track which user has which courses
-  db.run(`
-    CREATE TABLE IF NOT EXISTS user_courses (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      user_id INTEGER NOT NULL,
-      course_name TEXT NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id),
-      UNIQUE(user_id, course_name)
-    )
-  `, (err) => {
-    if (err) {
-      console.error('Error creating user_courses table:', err);
-    } else {
-      console.log('User_courses table ready');
-    }
-  });
-});
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS user_courses (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL,
+        course_name TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        UNIQUE(user_id, course_name)
+      )
+    `);
+    console.log('User_courses table ready');
+  } catch (err) {
+    console.error('Error creating tables:', err);
+  }
+}
 
-module.exports = db;
+module.exports = pool;
