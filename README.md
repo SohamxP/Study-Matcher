@@ -92,6 +92,14 @@ Frontend runs on `http://localhost:5173`
 
 ## 📸 Screenshots
 
+### Login & Registration
+![Login Page](https://i.imgur.com/iuPkHTE.jpeg)
+
+### User Dashboard
+![Dashboard](https://i.imgur.com/xvouXVu.png)
+
+### Find Study Partners
+![Study Partner Matches](https://i.imgur.com/glVbAfl.png)
 
 ## 🔒 Security Features
 
