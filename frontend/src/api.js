@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://study-matcher-backend.onrender.com';
+const API_URL = 'https://study-matcher-backend.onrender.com/api';
 
 // Create axios instance
 const api = axios.create({
