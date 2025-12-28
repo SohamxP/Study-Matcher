@@ -1,8 +1,9 @@
 # 🎓 Study Matcher
 
-A full-stack web application that connects university students with study partners based on shared courses.
+> A full-stack web application connecting university students with study partners based on shared courses.
 
-![Study Matcher Demo](https://via.placeholder.com/800x400?text=Add+Screenshot+Here)
+[![Live Demo](https://img.shields.io/badge/demo-live-success?style=for-the-badge)](https://study-matcher-nine.vercel.app)
+[![GitHub](https://img.shields.io/badge/github-repository-blue?style=for-the-badge&logo=github)](https://github.com/SohamxP/study-matcher)
 
 ## 🚀 Features
 
@@ -22,9 +23,19 @@ A full-stack web application that connects university students with study partne
 **Backend:**
 - Node.js
 - Express
-- SQLite
+- PostgreSQL
 - JWT (jsonwebtoken)
 - bcrypt
+  
+## 🌐 Live Deployment
+
+**Production App:**
+- Frontend: https://study-matcher-nine.vercel.app
+- Backend API: https://study-matcher-backend.onrender.com
+
+**For Local Development:** See installation instructions below ⬇️
+
+---
 
 ## 📦 Installation
 
@@ -117,12 +128,14 @@ Frontend runs on `http://localhost:5173`
 - Mobile app version
 - User ratings and reviews
 
-## 👨‍💻 Author
+## 👨‍💻 Developer
 
-**Your Name**
-- GitHub: [@SohamxP](https://github.com/SohamxP)
-- LinkedIn: [Soham Panchal](https://linkedin.com/in/soham-panchal/)
-- Email: work.panchalsoham@example.com
+**Soham Panchal**  
+Computer Science Student | University of Texas at Arlington
+
+[![GitHub](https://img.shields.io/badge/GitHub-SohamxP-black?style=flat&logo=github)](https://github.com/SohamxP)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=flat&logo=linkedin)](https://linkedin.com/in/soham-panchal/)
+[![Email](https://img.shields.io/badge/Email-Contact-red?style=flat&logo=gmail)](mailto:work.panchalsoham@gmail.com)
 
 ## 📄 License
 
